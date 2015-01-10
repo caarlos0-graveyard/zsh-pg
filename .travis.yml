@@ -1,0 +1,9 @@
+language: bash
+addons:
+  postgresql: "9.3"
+install:
+  - ./build/install.sh
+script:
+  - ./build.sh
+notifications:
+  email: false
