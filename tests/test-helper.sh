@@ -1,4 +1,6 @@
 #!/bin/bash
+set -eo pipefail
+
 [[ ! -f "assert.sh" ]] && \
   wget https://raw.githubusercontent.com/lehmannro/assert.sh/master/assert.sh \
   &> /dev/null
