@@ -66,22 +66,22 @@ pg() {
   local command="$1"; shift
   case "$command" in
     ls)
-      _ls "$*"
+      _ls "$@"
       ;;
     kill-connections)
-      _kill-connections "$*"
+      _kill-connections "$@"
       ;;
     create)
-      _create "$*"
+      _create "$@"
       ;;
     drop)
-      _drop "$*"
+      _drop "$@"
       ;;
     cp)
-      _cp "$*"
+      _cp "$@"
       ;;
     mv)
-      _mv "$*"
+      _mv "$@"
       ;;
     *)
       echo "Usage: pg (ls|kill-connections|create|drop|cp|mv) <args>"
