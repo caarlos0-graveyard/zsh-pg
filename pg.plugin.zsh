@@ -1,17 +1,16 @@
 #!/bin/zsh
-set -eo pipefail
 
 __check() {
   if [ -z "$2" ]; then
     echo "Usage: pg $1 <db_name>"
-    exit 1
+    return 0
   fi
 }
 
 __check2() {
   if [ -z "$2" ] || [ -z "$3" ]; then
     echo "Usage: pg $1 <origin> <target>"
-    exit 1
+    return 0
   fi
 }
 
@@ -86,6 +85,7 @@ pg() {
       ;;
     *)
       echo "Usage: pg (ls|kill-connections|create|drop|cp|mv) <args>"
+      return 0
       ;;
   esac
 }
