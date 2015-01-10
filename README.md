@@ -11,6 +11,14 @@ A ZSH plugin with utility functions to work with PostgreSQL.
 - `pg mv <origin> <target>`: rename a database
 - `pg kill-connections <database>`: kill all connections to a database
 
+# Install
+
+Using antigen:
+
+```sh
+antigen bundle caarlos0/zsh-pg
+```
+
 # Thanks to
 
 - [original idea](https://github.com/juanibiapina/pg)
