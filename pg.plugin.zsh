@@ -1,26 +1,26 @@
 #!/bin/zsh
 
-__check() {
+__pg-check() {
   if [ -z "$2" ]; then
     echo "Usage: pg $1 <db_name>"
     return 0
   fi
 }
 
-__check2() {
+__pg-check2() {
   if [ -z "$2" ] || [ -z "$3" ]; then
     echo "Usage: pg $1 <origin> <target>"
     return 0
   fi
 }
 
-_ls() {
+_pg-ls() {
   psql postgres -Atq -c "select d.datname from pg_catalog.pg_database d;"
 }
 
-_kill-connections() {
+_pg-kill-connections() {
   local db_name="$*"
-  __check "kill-connections" "$db_name"
+  __pg-check "kill-connections" "$db_name"
   psql postgres > /dev/null <<EOF
     SELECT pg_terminate_backend(pid)
     FROM pg_stat_activity
@@ -29,34 +29,34 @@ _kill-connections() {
 EOF
 }
 
-_create() {
+_pg-create() {
   local db_name="$*"
-  __check "create" "$db_name"
+  __pg-check "create" "$db_name"
   createdb "$db_name"
 }
 
-_drop() {
+_pg-drop() {
   local db_name="$*"
-  __check "drop" "$db_name"
-  _kill-connections "$db_name"
+  __pg-check "drop" "$db_name"
+  _pg-kill-connections "$db_name"
   dropdb --if-exists "$db_name"
 }
 
-_cp() {
+_pg-cp() {
   local origin="$1"
   local target="$2"
-  __check2 "cp" "$origin" "$target"
-  _kill-connections "$origin"
+  __pg-check2 "cp" "$origin" "$target"
+  _pg-kill-connections "$origin"
   psql postgres &> /dev/null <<EOF
     CREATE DATABASE "$target" WITH TEMPLATE "$origin";
 EOF
 }
 
-_mv() {
+_pg-mv() {
   local origin="$1"
   local target="$2"
-  __check2 "mv" "$origin" "$target"
-  _kill-connections "$origin"
+  __pg-check2 "mv" "$origin" "$target"
+  _pg-kill-connections "$origin"
   psql postgres &> /dev/null <<EOF
     ALTER DATABASE "$origin" RENAME TO "$target";
 EOF
@@ -66,22 +66,22 @@ pg() {
   local command="$1"; shift
   case "$command" in
     ls)
-      _ls "$@"
+      _pg-ls "$@"
       ;;
     kill-connections)
-      _kill-connections "$@"
+      _pg-kill-connections "$@"
       ;;
     create)
-      _create "$@"
+      _pg-create "$@"
       ;;
     drop)
-      _drop "$@"
+      _pg-drop "$@"
       ;;
     cp)
-      _cp "$@"
+      _pg-cp "$@"
       ;;
     mv)
-      _mv "$@"
+      _pg-mv "$@"
       ;;
     *)
       echo "Usage: pg (ls|kill-connections|create|drop|cp|mv) <args>"
