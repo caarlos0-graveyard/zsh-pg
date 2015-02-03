@@ -10,6 +10,8 @@ A ZSH plugin with utility functions to work with PostgreSQL.
 - `pg cp <origin> <target>`: make a copy of a database
 - `pg mv <origin> <target>`: rename a database
 - `pg kill-connections <database>`: kill all connections to a database
+- `pg dump-table <database> <table> > file.sql`: dump table data (in form of
+inserts) into the `file.sql`
 
 # Install
 
