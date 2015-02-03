@@ -1,19 +1,17 @@
 #!/bin/zsh
 
 __pg-check() {
-  if [ "$#" = 2 ]; then
+  if [ "$#" != 2 ]; then
     echo "Usage: pg $1 <db_name>"
     return 1
   fi
-  return 0
 }
 
 __pg-check2() {
-  if [ "$#" = 3 ]; then
+  if [ "$#" != 3 ]; then
     echo "Usage: pg $1 <origin> <target>"
     return 1
   fi
-  return 0
 }
 
 _pg-ls() {
@@ -73,6 +71,7 @@ _pg-dump-table() {
   local table_name="$2"
   if [ "$#" != 2 ]; then
     echo "Usage: pg dump-table <db_name> <table_name>"
+  else
     pg_dump --table="$table_name" --data-only --column-inserts "$db_name"
   fi
 }
