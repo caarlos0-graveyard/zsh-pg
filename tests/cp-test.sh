@@ -8,6 +8,12 @@ source "./tests/test-helper.sh"
 origin="$(_create-test-db-name)"
 sleep 1
 target="$(_create-test-db-name)"
+drop() {
+  pg drop "$origin"
+  pg drop "$target"
+}
+trap drop EXIT
+
 assert "pg ls | grep $origin" ""
 assert "pg ls | grep $target" ""
 pg create "$origin"

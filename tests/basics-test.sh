@@ -2,6 +2,11 @@
 source "./tests/test-helper.sh"
 
 db_name="$(_create-test-db-name)"
+drop() {
+  pg drop "$db_name"
+}
+trap drop EXIT
+
 assert "pg ls | grep $db_name" ""
 
 pg create "$db_name"
