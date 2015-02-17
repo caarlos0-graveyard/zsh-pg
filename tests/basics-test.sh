@@ -7,6 +7,8 @@ drop() {
 }
 trap drop EXIT
 
+assert "pg | grep 'shift count'" ""
+
 assert "pg ls | grep $db_name" ""
 
 pg create "$db_name"

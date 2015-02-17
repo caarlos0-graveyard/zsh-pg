@@ -77,7 +77,9 @@ _pg-dump-table() {
 }
 
 pg() {
-  local command="$1"; shift
+  if [ "$#" != 0 ]; then
+    local command="$1"; shift
+  fi
   case "$command" in
     ls)
       _pg-ls "$@"
