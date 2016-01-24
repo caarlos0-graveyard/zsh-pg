@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/bin/sh
 
 __pg-check() {
   if [ "$#" != 2 ]; then
@@ -49,7 +49,7 @@ _pg-cp() {
   local target="$2"
   if __pg-check2 "cp" "$origin" "$target"; then
     _pg-kill-connections "$origin"
-    psql postgres &> /dev/null <<EOF
+    psql postgres > /dev/null <<EOF
       CREATE DATABASE "$target" WITH TEMPLATE "$origin";
 EOF
   fi
@@ -60,7 +60,7 @@ _pg-mv() {
   local target="$2"
   if __pg-check2 "mv" "$origin" "$target"; then
     _pg-kill-connections "$origin"
-    psql postgres &> /dev/null <<EOF
+    psql postgres > /dev/null <<EOF
       ALTER DATABASE "$origin" RENAME TO "$target";
 EOF
   fi
@@ -108,4 +108,3 @@ pg() {
       ;;
   esac
 }
-

@@ -8,3 +8,4 @@ script:
   - ./build.sh
 notifications:
   email: false
+sudo: required
