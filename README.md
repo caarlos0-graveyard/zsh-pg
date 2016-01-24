@@ -15,10 +15,16 @@ inserts) into the `file.sql`
 
 # Install
 
-Using antigen:
+### Using antibody:
 
 ```sh
-antigen bundle caarlos0/zsh-pg
+$ antibody bundle caarlos0/zsh-pg
+```
+
+### Using antigen:
+
+```sh
+$ antigen bundle caarlos0/zsh-pg
 ```
 
 # Thanks to
