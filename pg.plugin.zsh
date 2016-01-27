@@ -1,5 +1,6 @@
 #!/bin/sh
-
+#
+# shellcheck disable=SC2039
 __pg-check() {
   if [ "$#" != 2 ]; then
     echo "Usage: pg $1 <db_name>"
@@ -7,6 +8,7 @@ __pg-check() {
   fi
 }
 
+# shellcheck disable=SC2039
 __pg-check2() {
   if [ "$#" != 3 ]; then
     echo "Usage: pg $1 <origin> <target>"
@@ -14,11 +16,14 @@ __pg-check2() {
   fi
 }
 
+# shellcheck disable=SC2039
 _pg-ls() {
   psql postgres -Atq -c "select d.datname from pg_catalog.pg_database d;"
 }
 
+# shellcheck disable=SC2039
 _pg-kill-connections() {
+  # shellcheck disable=SC2039
   local db_name="$*"
   if __pg-check "kill-connections" "$db_name"; then
     psql postgres > /dev/null <<EOF
@@ -30,13 +35,17 @@ EOF
   fi
 }
 
+# shellcheck disable=SC2039
 _pg-create() {
+  # shellcheck disable=SC2039
   local db_name="$*"
   __pg-check "create" "$db_name" && \
     createdb "$db_name"
 }
 
+# shellcheck disable=SC2039
 _pg-drop() {
+  # shellcheck disable=SC2039
   local db_name="$*"
   if __pg-check "drop" "$db_name"; then
     _pg-kill-connections "$db_name"
@@ -44,9 +53,12 @@ _pg-drop() {
   fi
 }
 
+# shellcheck disable=SC2039
 _pg-cp() {
-  local origin="$1"
-  local target="$2"
+  # shellcheck disable=SC2039
+  local origin target
+  origin="$1"
+  target="$2"
   if __pg-check2 "cp" "$origin" "$target"; then
     _pg-kill-connections "$origin"
     psql postgres > /dev/null <<EOF
@@ -55,9 +67,12 @@ EOF
   fi
 }
 
+# shellcheck disable=SC2039
 _pg-mv() {
-  local origin="$1"
-  local target="$2"
+  # shellcheck disable=SC2039
+  local origin target
+  origin="$1"
+  target="$2"
   if __pg-check2 "mv" "$origin" "$target"; then
     _pg-kill-connections "$origin"
     psql postgres > /dev/null <<EOF
@@ -66,9 +81,12 @@ EOF
   fi
 }
 
+# shellcheck disable=SC2039
 _pg-dump-table() {
-  local db_name="$1"
-  local table_name="$2"
+  # shellcheck disable=SC2039
+  local db_name table_name
+  db_name="$1"
+  table_name="$2"
   if [ "$#" != 2 ]; then
     echo "Usage: pg dump-table <db_name> <table_name>"
   else
@@ -77,8 +95,10 @@ _pg-dump-table() {
 }
 
 pg() {
+  # shellcheck disable=SC2039
+  local command
   if [ "$#" != 0 ]; then
-    local command="$1"; shift
+    command="$1"; shift
   fi
   case "$command" in
     ls)
