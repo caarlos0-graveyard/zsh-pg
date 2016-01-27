@@ -5,7 +5,6 @@ os:
 addons:
   postgresql: "9.3"
 install:
-  - sudo apt-get install bc
   - ./build/install.sh
 script:
   - ./build.sh
