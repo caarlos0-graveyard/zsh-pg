@@ -1,4 +1,5 @@
 #!/bin/bash
+# shellcheck disable=1091
 source "./tests/test-helper.sh"
 
 # FIXME
