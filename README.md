@@ -27,6 +27,15 @@ $ antibody bundle caarlos0/zsh-pg
 $ antigen bundle caarlos0/zsh-pg
 ```
 
+### Using Fig:
+
+
+[Fig](https://fig.io) adds apps, shortcuts, and autocomplete to your existing terminal.
+
+Install `zsh-pg` in just one click.
+
+<a href="https://fig.io/plugins/zsh-pg_caarlos0-graveyard" target="_blank"><img src="https://fig.io/badges/install-with-fig.svg" /></a>
+
 # Thanks to
 
 - [original idea](https://github.com/juanibiapina/pg)
